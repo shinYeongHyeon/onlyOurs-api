@@ -11,6 +11,11 @@
 
 
 ### Docker
+Before Deploy, Schema Update
+```shell
+go generate ./ent
+```
+Then,
 ```shell
 docker-compose up -d
 ```

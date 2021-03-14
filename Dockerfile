@@ -11,7 +11,11 @@ RUN apk update && \
     go get github.com/labstack/gommon/log && \
     go get -u github.com/swaggo/swag/cmd/swag && \
     go get -u github.com/swaggo/http-swagger && \
-    go get -u github.com/alecthomas/template
+    go get -u github.com/alecthomas/template && \
+    go get entgo.io/ent/cmd/ent && \
+    go get github.com/lib/pq
+
+ADD    https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /
 
 # 9: HotReload
 # 10: Gorilla/mux
@@ -19,4 +23,4 @@ RUN apk update && \
 # 12~14: Swaggo Setting (https://www.soberkoder.com/swagger-go-api-swaggo/)
 
 EXPOSE 9999
-CMD ["reflex", "-c", "reflex.conf"]
+CMD ["reflex", "-c", "reflex.conf", "sh"]
