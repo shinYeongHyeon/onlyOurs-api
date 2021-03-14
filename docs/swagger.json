@@ -1,0 +1,12 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is onlyOurs API",
+        "title": "onlyOurs API",
+        "contact": {},
+        "version": "0.0.1"
+    },
+    "host": "localhost:9999",
+    "basePath": "/",
+    "paths": {}
+}
