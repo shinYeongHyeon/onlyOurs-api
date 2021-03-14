@@ -13,7 +13,8 @@ RUN apk update && \
     go get -u github.com/swaggo/http-swagger && \
     go get -u github.com/alecthomas/template && \
     go get entgo.io/ent/cmd/ent && \
-    go get github.com/lib/pq
+    go get github.com/lib/pq && \
+    go get github.com/stretchr/testify
 
 # 9: HotReload
 # 10: Gorilla/mux
