@@ -1,12 +1,15 @@
 package main
 
 import (
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, rq *http.Request) {
-		w.Write([]byte("Do Enjoy!"))
+	router := mux.NewRouter()
+	router.HandleFunc("/", func(w http.ResponseWriter, rq *http.Request) {
+		w.Write([]byte("Do Enjoy!@#"))
 	})
-	http.ListenAndServe(":9999", nil)
+
+	http.ListenAndServe(":9999", router)
 }
