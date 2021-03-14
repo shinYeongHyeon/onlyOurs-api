@@ -19,6 +19,20 @@ type UsersCreate struct {
 	hooks    []Hook
 }
 
+// SetEmail sets the "email" field.
+func (uc *UsersCreate) SetEmail(s string) *UsersCreate {
+	uc.mutation.SetEmail(s)
+	return uc
+}
+
+// SetNillableEmail sets the "email" field if the given value is not nil.
+func (uc *UsersCreate) SetNillableEmail(s *string) *UsersCreate {
+	if s != nil {
+		uc.SetEmail(*s)
+	}
+	return uc
+}
+
 // SetName sets the "name" field.
 func (uc *UsersCreate) SetName(s string) *UsersCreate {
 	uc.mutation.SetName(s)
@@ -29,6 +43,20 @@ func (uc *UsersCreate) SetName(s string) *UsersCreate {
 func (uc *UsersCreate) SetNillableName(s *string) *UsersCreate {
 	if s != nil {
 		uc.SetName(*s)
+	}
+	return uc
+}
+
+// SetPassword sets the "password" field.
+func (uc *UsersCreate) SetPassword(s string) *UsersCreate {
+	uc.mutation.SetPassword(s)
+	return uc
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (uc *UsersCreate) SetNillablePassword(s *string) *UsersCreate {
+	if s != nil {
+		uc.SetPassword(*s)
 	}
 	return uc
 }
@@ -85,16 +113,30 @@ func (uc *UsersCreate) SaveX(ctx context.Context) *Users {
 
 // defaults sets the default values of the builder before save.
 func (uc *UsersCreate) defaults() {
+	if _, ok := uc.mutation.Email(); !ok {
+		v := users.DefaultEmail
+		uc.mutation.SetEmail(v)
+	}
 	if _, ok := uc.mutation.Name(); !ok {
 		v := users.DefaultName
 		uc.mutation.SetName(v)
+	}
+	if _, ok := uc.mutation.Password(); !ok {
+		v := users.DefaultPassword
+		uc.mutation.SetPassword(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (uc *UsersCreate) check() error {
+	if _, ok := uc.mutation.Email(); !ok {
+		return &ValidationError{Name: "email", err: errors.New("ent: missing required field \"email\"")}
+	}
 	if _, ok := uc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
+	}
+	if _, ok := uc.mutation.Password(); !ok {
+		return &ValidationError{Name: "password", err: errors.New("ent: missing required field \"password\"")}
 	}
 	return nil
 }
@@ -123,6 +165,14 @@ func (uc *UsersCreate) createSpec() (*Users, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := uc.mutation.Email(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: users.FieldEmail,
+		})
+		_node.Email = value
+	}
 	if value, ok := uc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -130,6 +180,14 @@ func (uc *UsersCreate) createSpec() (*Users, *sqlgraph.CreateSpec) {
 			Column: users.FieldName,
 		})
 		_node.Name = value
+	}
+	if value, ok := uc.mutation.Password(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: users.FieldPassword,
+		})
+		_node.Password = value
 	}
 	return _node, _spec
 }

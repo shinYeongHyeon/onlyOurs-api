@@ -11,6 +11,7 @@ import (
 	"github.com/shinYeongHyeon/onlyOurs-api/ent"
 	httpSwagger "github.com/swaggo/http-swagger"
 	"net/http"
+	"os"
 )
 
 type test struct {
@@ -25,11 +26,16 @@ type test struct {
 // @BasePath /
 func main() {
 	url := fmt.Sprintf("postgresql://%v:%v@%v:%v/%v?sslmode=disable",
-		"sampleuser",
-		"samplesecret",
-		"onlyours-postgres",
-		"5432",
-		"sampledb")
+		os.Getenv("POSTGRES_USER"),
+		os.Getenv("POSTGRES_PASSWORD"),
+		os.Getenv("POSTGRES_HOST"),
+		os.Getenv("POSTGRES_PORT"),
+		os.Getenv("POSTGRES_DB"))
+
+
+
+
+
 	client, err := ent.Open("postgres", url)
 	if err != nil {
 		log.Fatal(err)

@@ -26,6 +26,20 @@ func (uu *UsersUpdate) Where(ps ...predicate.Users) *UsersUpdate {
 	return uu
 }
 
+// SetEmail sets the "email" field.
+func (uu *UsersUpdate) SetEmail(s string) *UsersUpdate {
+	uu.mutation.SetEmail(s)
+	return uu
+}
+
+// SetNillableEmail sets the "email" field if the given value is not nil.
+func (uu *UsersUpdate) SetNillableEmail(s *string) *UsersUpdate {
+	if s != nil {
+		uu.SetEmail(*s)
+	}
+	return uu
+}
+
 // SetName sets the "name" field.
 func (uu *UsersUpdate) SetName(s string) *UsersUpdate {
 	uu.mutation.SetName(s)
@@ -36,6 +50,20 @@ func (uu *UsersUpdate) SetName(s string) *UsersUpdate {
 func (uu *UsersUpdate) SetNillableName(s *string) *UsersUpdate {
 	if s != nil {
 		uu.SetName(*s)
+	}
+	return uu
+}
+
+// SetPassword sets the "password" field.
+func (uu *UsersUpdate) SetPassword(s string) *UsersUpdate {
+	uu.mutation.SetPassword(s)
+	return uu
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (uu *UsersUpdate) SetNillablePassword(s *string) *UsersUpdate {
+	if s != nil {
+		uu.SetPassword(*s)
 	}
 	return uu
 }
@@ -114,11 +142,25 @@ func (uu *UsersUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := uu.mutation.Email(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: users.FieldEmail,
+		})
+	}
 	if value, ok := uu.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
 			Column: users.FieldName,
+		})
+	}
+	if value, ok := uu.mutation.Password(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: users.FieldPassword,
 		})
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
@@ -139,6 +181,20 @@ type UsersUpdateOne struct {
 	mutation *UsersMutation
 }
 
+// SetEmail sets the "email" field.
+func (uuo *UsersUpdateOne) SetEmail(s string) *UsersUpdateOne {
+	uuo.mutation.SetEmail(s)
+	return uuo
+}
+
+// SetNillableEmail sets the "email" field if the given value is not nil.
+func (uuo *UsersUpdateOne) SetNillableEmail(s *string) *UsersUpdateOne {
+	if s != nil {
+		uuo.SetEmail(*s)
+	}
+	return uuo
+}
+
 // SetName sets the "name" field.
 func (uuo *UsersUpdateOne) SetName(s string) *UsersUpdateOne {
 	uuo.mutation.SetName(s)
@@ -149,6 +205,20 @@ func (uuo *UsersUpdateOne) SetName(s string) *UsersUpdateOne {
 func (uuo *UsersUpdateOne) SetNillableName(s *string) *UsersUpdateOne {
 	if s != nil {
 		uuo.SetName(*s)
+	}
+	return uuo
+}
+
+// SetPassword sets the "password" field.
+func (uuo *UsersUpdateOne) SetPassword(s string) *UsersUpdateOne {
+	uuo.mutation.SetPassword(s)
+	return uuo
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (uuo *UsersUpdateOne) SetNillablePassword(s *string) *UsersUpdateOne {
+	if s != nil {
+		uuo.SetPassword(*s)
 	}
 	return uuo
 }
@@ -232,11 +302,25 @@ func (uuo *UsersUpdateOne) sqlSave(ctx context.Context) (_node *Users, err error
 			}
 		}
 	}
+	if value, ok := uuo.mutation.Email(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: users.FieldEmail,
+		})
+	}
 	if value, ok := uuo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
 			Column: users.FieldName,
+		})
+	}
+	if value, ok := uuo.mutation.Password(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: users.FieldPassword,
 		})
 	}
 	_node = &Users{config: uuo.config}

@@ -15,8 +15,12 @@ type Users struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
+	// Email holds the value of the "email" field.
+	Email string `json:"email,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
+	// Password holds the value of the "password" field.
+	Password string `json:"password,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -26,7 +30,7 @@ func (*Users) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case users.FieldID:
 			values[i] = &sql.NullInt64{}
-		case users.FieldName:
+		case users.FieldEmail, users.FieldName, users.FieldPassword:
 			values[i] = &sql.NullString{}
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Users", columns[i])
@@ -49,11 +53,23 @@ func (u *Users) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			u.ID = int(value.Int64)
+		case users.FieldEmail:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field email", values[i])
+			} else if value.Valid {
+				u.Email = value.String
+			}
 		case users.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
 				u.Name = value.String
+			}
+		case users.FieldPassword:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field password", values[i])
+			} else if value.Valid {
+				u.Password = value.String
 			}
 		}
 	}
@@ -83,8 +99,12 @@ func (u *Users) String() string {
 	var builder strings.Builder
 	builder.WriteString("Users(")
 	builder.WriteString(fmt.Sprintf("id=%v", u.ID))
+	builder.WriteString(", email=")
+	builder.WriteString(u.Email)
 	builder.WriteString(", name=")
 	builder.WriteString(u.Name)
+	builder.WriteString(", password=")
+	builder.WriteString(u.Password)
 	builder.WriteByte(')')
 	return builder.String()
 }

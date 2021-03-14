@@ -13,7 +13,9 @@ type Users struct {
 // Fields of the Users.
 func (Users) Fields() []ent.Field {
 	return []ent.Field {
+		field.String("email").Default(""),
 		field.String("name").Default(""),
+		field.String("password").Default(""),
 	}
 }
 
