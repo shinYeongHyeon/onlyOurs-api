@@ -1,6 +1,9 @@
 package core
 
-import "net/http"
+import (
+	"encoding/json"
+	"net/http"
+)
 
 type coreError struct {
 	message string
@@ -10,4 +13,14 @@ type coreError struct {
 var internalError = coreError {
 	"Internal Error",
 	http.StatusInternalServerError,
+}
+
+func NotFoundHandler(domain string) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"message": "Request was not found On " + domain + " Domain",
+		})
+	}
 }

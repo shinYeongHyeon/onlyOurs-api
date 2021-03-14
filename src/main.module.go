@@ -5,13 +5,9 @@ import (
 	"github.com/shinYeongHyeon/onlyOurs-api/core"
 	"github.com/shinYeongHyeon/onlyOurs-api/core/postgres"
 	"github.com/shinYeongHyeon/onlyOurs-api/src/todo"
+	"github.com/shinYeongHyeon/onlyOurs-api/src/user"
 	"net/http"
 )
-
-type test2 struct {
-	A int
-	B string
-}
 
 // ListenAndServe starts up the server
 func ListenAndServe(address string, r *mux.Router) error {
@@ -19,6 +15,7 @@ func ListenAndServe(address string, r *mux.Router) error {
 
 	http.Handle("/", core.LoggingMiddleware(r))
 	http.Handle("/todo/", core.LoggingMiddleware(todo.TodoModule()))
+	http.Handle("/user/", core.LoggingMiddleware(user.UserModule()))
 
 	return http.ListenAndServe(
 		address,

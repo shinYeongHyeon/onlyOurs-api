@@ -3,8 +3,8 @@
 package users
 
 const (
-	// Label holds the string label denoting the users type in the database.
-	Label = "users"
+	// Label holds the string label denoting the user type in the database.
+	Label = "user"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
 	// FieldEmail holds the string denoting the email field in the database.
@@ -13,11 +13,11 @@ const (
 	FieldName = "name"
 	// FieldPassword holds the string denoting the password field in the database.
 	FieldPassword = "password"
-	// Table holds the table name of the users in the database.
-	Table = "users"
+	// Table holds the table name of the user in the database.
+	Table = "user"
 )
 
-// Columns holds all SQL columns for users fields.
+// Columns holds all SQL columns for user fields.
 var Columns = []string{
 	FieldID,
 	FieldEmail,
