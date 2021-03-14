@@ -11,6 +11,11 @@
 
 
 ### Docker
+```shell
+docker-compose up -d
+```
+
+deprecated
 ```
 docker build --tag golang-docker-tutorial:test .
 docker run -p 9999:9999 -v $(pwd):/app golang-docker-tutorial:test

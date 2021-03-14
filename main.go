@@ -23,8 +23,8 @@ func main() {
 
 	router.HandleFunc("/", func(w http.ResponseWriter, rq *http.Request) {
 		core.WriteJSON(w, test {
-			5,
-			"test",
+			6,
+			"compose_test",
 		})
 	})
 
