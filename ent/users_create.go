@@ -19,16 +19,16 @@ type UsersCreate struct {
 	hooks    []Hook
 }
 
-// SetEmail sets the "email" field.
-func (uc *UsersCreate) SetEmail(s string) *UsersCreate {
-	uc.mutation.SetEmail(s)
+// SetUserID sets the "user_id" field.
+func (uc *UsersCreate) SetUserID(s string) *UsersCreate {
+	uc.mutation.SetUserID(s)
 	return uc
 }
 
-// SetNillableEmail sets the "email" field if the given value is not nil.
-func (uc *UsersCreate) SetNillableEmail(s *string) *UsersCreate {
+// SetNillableUserID sets the "user_id" field if the given value is not nil.
+func (uc *UsersCreate) SetNillableUserID(s *string) *UsersCreate {
 	if s != nil {
-		uc.SetEmail(*s)
+		uc.SetUserID(*s)
 	}
 	return uc
 }
@@ -58,6 +58,12 @@ func (uc *UsersCreate) SetNillablePassword(s *string) *UsersCreate {
 	if s != nil {
 		uc.SetPassword(*s)
 	}
+	return uc
+}
+
+// SetID sets the "id" field.
+func (uc *UsersCreate) SetID(i int) *UsersCreate {
+	uc.mutation.SetID(i)
 	return uc
 }
 
@@ -113,9 +119,9 @@ func (uc *UsersCreate) SaveX(ctx context.Context) *Users {
 
 // defaults sets the default values of the builder before save.
 func (uc *UsersCreate) defaults() {
-	if _, ok := uc.mutation.Email(); !ok {
-		v := users.DefaultEmail
-		uc.mutation.SetEmail(v)
+	if _, ok := uc.mutation.UserID(); !ok {
+		v := users.DefaultUserID
+		uc.mutation.SetUserID(v)
 	}
 	if _, ok := uc.mutation.Name(); !ok {
 		v := users.DefaultName
@@ -129,8 +135,8 @@ func (uc *UsersCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (uc *UsersCreate) check() error {
-	if _, ok := uc.mutation.Email(); !ok {
-		return &ValidationError{Name: "email", err: errors.New("ent: missing required field \"email\"")}
+	if _, ok := uc.mutation.UserID(); !ok {
+		return &ValidationError{Name: "user_id", err: errors.New("ent: missing required field \"user_id\"")}
 	}
 	if _, ok := uc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
@@ -149,8 +155,10 @@ func (uc *UsersCreate) sqlSave(ctx context.Context) (*Users, error) {
 		}
 		return nil, err
 	}
-	id := _spec.ID.Value.(int64)
-	_node.ID = int(id)
+	if _node.ID == 0 {
+		id := _spec.ID.Value.(int64)
+		_node.ID = int(id)
+	}
 	return _node, nil
 }
 
@@ -165,13 +173,17 @@ func (uc *UsersCreate) createSpec() (*Users, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
-	if value, ok := uc.mutation.Email(); ok {
+	if id, ok := uc.mutation.ID(); ok {
+		_node.ID = id
+		_spec.ID.Value = id
+	}
+	if value, ok := uc.mutation.UserID(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: users.FieldEmail,
+			Column: users.FieldUserID,
 		})
-		_node.Email = value
+		_node.UserID = value
 	}
 	if value, ok := uc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -232,8 +244,10 @@ func (ucb *UsersCreateBulk) Save(ctx context.Context) ([]*Users, error) {
 				if err != nil {
 					return nil, err
 				}
-				id := specs[i].ID.Value.(int64)
-				nodes[i].ID = int(id)
+				if nodes[i].ID == 0 {
+					id := specs[i].ID.Value.(int64)
+					nodes[i].ID = int(id)
+				}
 				return nodes[i], nil
 			})
 			for i := len(builder.hooks) - 1; i >= 0; i-- {

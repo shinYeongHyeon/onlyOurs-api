@@ -26,16 +26,16 @@ func (uu *UsersUpdate) Where(ps ...predicate.Users) *UsersUpdate {
 	return uu
 }
 
-// SetEmail sets the "email" field.
-func (uu *UsersUpdate) SetEmail(s string) *UsersUpdate {
-	uu.mutation.SetEmail(s)
+// SetUserID sets the "user_id" field.
+func (uu *UsersUpdate) SetUserID(s string) *UsersUpdate {
+	uu.mutation.SetUserID(s)
 	return uu
 }
 
-// SetNillableEmail sets the "email" field if the given value is not nil.
-func (uu *UsersUpdate) SetNillableEmail(s *string) *UsersUpdate {
+// SetNillableUserID sets the "user_id" field if the given value is not nil.
+func (uu *UsersUpdate) SetNillableUserID(s *string) *UsersUpdate {
 	if s != nil {
-		uu.SetEmail(*s)
+		uu.SetUserID(*s)
 	}
 	return uu
 }
@@ -142,11 +142,11 @@ func (uu *UsersUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := uu.mutation.Email(); ok {
+	if value, ok := uu.mutation.UserID(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: users.FieldEmail,
+			Column: users.FieldUserID,
 		})
 	}
 	if value, ok := uu.mutation.Name(); ok {
@@ -181,16 +181,16 @@ type UsersUpdateOne struct {
 	mutation *UsersMutation
 }
 
-// SetEmail sets the "email" field.
-func (uuo *UsersUpdateOne) SetEmail(s string) *UsersUpdateOne {
-	uuo.mutation.SetEmail(s)
+// SetUserID sets the "user_id" field.
+func (uuo *UsersUpdateOne) SetUserID(s string) *UsersUpdateOne {
+	uuo.mutation.SetUserID(s)
 	return uuo
 }
 
-// SetNillableEmail sets the "email" field if the given value is not nil.
-func (uuo *UsersUpdateOne) SetNillableEmail(s *string) *UsersUpdateOne {
+// SetNillableUserID sets the "user_id" field if the given value is not nil.
+func (uuo *UsersUpdateOne) SetNillableUserID(s *string) *UsersUpdateOne {
 	if s != nil {
-		uuo.SetEmail(*s)
+		uuo.SetUserID(*s)
 	}
 	return uuo
 }
@@ -302,11 +302,11 @@ func (uuo *UsersUpdateOne) sqlSave(ctx context.Context) (_node *Users, err error
 			}
 		}
 	}
-	if value, ok := uuo.mutation.Email(); ok {
+	if value, ok := uuo.mutation.UserID(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: users.FieldEmail,
+			Column: users.FieldUserID,
 		})
 	}
 	if value, ok := uuo.mutation.Name(); ok {

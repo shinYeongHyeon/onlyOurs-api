@@ -6,9 +6,9 @@ const (
 	// Label holds the string label denoting the users type in the database.
 	Label = "users"
 	// FieldID holds the string denoting the id field in the database.
-	FieldID = "id"
-	// FieldEmail holds the string denoting the email field in the database.
-	FieldEmail = "email"
+	FieldID = "uuid"
+	// FieldUserID holds the string denoting the user_id field in the database.
+	FieldUserID = "user_id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldPassword holds the string denoting the password field in the database.
@@ -20,7 +20,7 @@ const (
 // Columns holds all SQL columns for users fields.
 var Columns = []string{
 	FieldID,
-	FieldEmail,
+	FieldUserID,
 	FieldName,
 	FieldPassword,
 }
@@ -36,8 +36,8 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultEmail holds the default value on creation for the "email" field.
-	DefaultEmail string
+	// DefaultUserID holds the default value on creation for the "user_id" field.
+	DefaultUserID string
 	// DefaultName holds the default value on creation for the "name" field.
 	DefaultName string
 	// DefaultPassword holds the default value on creation for the "password" field.

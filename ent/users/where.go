@@ -90,10 +90,10 @@ func IDLTE(id int) predicate.Users {
 	})
 }
 
-// Email applies equality check predicate on the "email" field. It's identical to EmailEQ.
-func Email(v string) predicate.Users {
+// UserID applies equality check predicate on the "user_id" field. It's identical to UserIDEQ.
+func UserID(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldEmail), v))
+		s.Where(sql.EQ(s.C(FieldUserID), v))
 	})
 }
 
@@ -111,22 +111,22 @@ func Password(v string) predicate.Users {
 	})
 }
 
-// EmailEQ applies the EQ predicate on the "email" field.
-func EmailEQ(v string) predicate.Users {
+// UserIDEQ applies the EQ predicate on the "user_id" field.
+func UserIDEQ(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldEmail), v))
+		s.Where(sql.EQ(s.C(FieldUserID), v))
 	})
 }
 
-// EmailNEQ applies the NEQ predicate on the "email" field.
-func EmailNEQ(v string) predicate.Users {
+// UserIDNEQ applies the NEQ predicate on the "user_id" field.
+func UserIDNEQ(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldEmail), v))
+		s.Where(sql.NEQ(s.C(FieldUserID), v))
 	})
 }
 
-// EmailIn applies the In predicate on the "email" field.
-func EmailIn(vs ...string) predicate.Users {
+// UserIDIn applies the In predicate on the "user_id" field.
+func UserIDIn(vs ...string) predicate.Users {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -138,12 +138,12 @@ func EmailIn(vs ...string) predicate.Users {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldEmail), v...))
+		s.Where(sql.In(s.C(FieldUserID), v...))
 	})
 }
 
-// EmailNotIn applies the NotIn predicate on the "email" field.
-func EmailNotIn(vs ...string) predicate.Users {
+// UserIDNotIn applies the NotIn predicate on the "user_id" field.
+func UserIDNotIn(vs ...string) predicate.Users {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -155,70 +155,70 @@ func EmailNotIn(vs ...string) predicate.Users {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldEmail), v...))
+		s.Where(sql.NotIn(s.C(FieldUserID), v...))
 	})
 }
 
-// EmailGT applies the GT predicate on the "email" field.
-func EmailGT(v string) predicate.Users {
+// UserIDGT applies the GT predicate on the "user_id" field.
+func UserIDGT(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldEmail), v))
+		s.Where(sql.GT(s.C(FieldUserID), v))
 	})
 }
 
-// EmailGTE applies the GTE predicate on the "email" field.
-func EmailGTE(v string) predicate.Users {
+// UserIDGTE applies the GTE predicate on the "user_id" field.
+func UserIDGTE(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldEmail), v))
+		s.Where(sql.GTE(s.C(FieldUserID), v))
 	})
 }
 
-// EmailLT applies the LT predicate on the "email" field.
-func EmailLT(v string) predicate.Users {
+// UserIDLT applies the LT predicate on the "user_id" field.
+func UserIDLT(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldEmail), v))
+		s.Where(sql.LT(s.C(FieldUserID), v))
 	})
 }
 
-// EmailLTE applies the LTE predicate on the "email" field.
-func EmailLTE(v string) predicate.Users {
+// UserIDLTE applies the LTE predicate on the "user_id" field.
+func UserIDLTE(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldEmail), v))
+		s.Where(sql.LTE(s.C(FieldUserID), v))
 	})
 }
 
-// EmailContains applies the Contains predicate on the "email" field.
-func EmailContains(v string) predicate.Users {
+// UserIDContains applies the Contains predicate on the "user_id" field.
+func UserIDContains(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldEmail), v))
+		s.Where(sql.Contains(s.C(FieldUserID), v))
 	})
 }
 
-// EmailHasPrefix applies the HasPrefix predicate on the "email" field.
-func EmailHasPrefix(v string) predicate.Users {
+// UserIDHasPrefix applies the HasPrefix predicate on the "user_id" field.
+func UserIDHasPrefix(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldEmail), v))
+		s.Where(sql.HasPrefix(s.C(FieldUserID), v))
 	})
 }
 
-// EmailHasSuffix applies the HasSuffix predicate on the "email" field.
-func EmailHasSuffix(v string) predicate.Users {
+// UserIDHasSuffix applies the HasSuffix predicate on the "user_id" field.
+func UserIDHasSuffix(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldEmail), v))
+		s.Where(sql.HasSuffix(s.C(FieldUserID), v))
 	})
 }
 
-// EmailEqualFold applies the EqualFold predicate on the "email" field.
-func EmailEqualFold(v string) predicate.Users {
+// UserIDEqualFold applies the EqualFold predicate on the "user_id" field.
+func UserIDEqualFold(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldEmail), v))
+		s.Where(sql.EqualFold(s.C(FieldUserID), v))
 	})
 }
 
-// EmailContainsFold applies the ContainsFold predicate on the "email" field.
-func EmailContainsFold(v string) predicate.Users {
+// UserIDContainsFold applies the ContainsFold predicate on the "user_id" field.
+func UserIDContainsFold(v string) predicate.Users {
 	return predicate.Users(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldEmail), v))
+		s.Where(sql.ContainsFold(s.C(FieldUserID), v))
 	})
 }
 
