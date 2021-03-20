@@ -14,7 +14,8 @@ RUN apk update && \
     go get -u github.com/alecthomas/template && \
     go get entgo.io/ent/cmd/ent && \
     go get github.com/lib/pq && \
-    go get github.com/stretchr/testify
+    go get github.com/stretchr/testify && \
+    go get github.com/google/uuid
 
 # 9: HotReload
 # 10: Gorilla/mux

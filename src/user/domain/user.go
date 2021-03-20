@@ -1,5 +1,7 @@
 package domain_user
 
+import "github.com/google/uuid"
+
 type User struct {
 	id string
 	userId UserId
@@ -22,16 +24,16 @@ type UserNewProps struct {
 
 func UserCreate(userProps UserProps) User {
 	return User {
-		id: userProps.id,
-		userId: UserIdCreate(userProps.userId),
-		name: UserNameCreate(userProps.name),
+		id:       userProps.id,
+		userId:   UserIdCreate(userProps.userId),
+		name:     UserNameCreate(userProps.name),
 		password: UserPasswordCreate(userProps.password),
 	}
 }
 
 func UserNewCreate(userNewProps UserNewProps) User {
 	return UserCreate(UserProps {
-		id:       "todo uuid",
+		id:       uuid.NewString(),
 		userId:   userNewProps.userId,
 		name:     userNewProps.name,
 		password: userNewProps.password,
