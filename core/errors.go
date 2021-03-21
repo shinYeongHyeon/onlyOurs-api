@@ -5,14 +5,19 @@ import (
 	"net/http"
 )
 
-type coreError struct {
-	message string
-	status int
+type Error struct {
+	Message string
+	Status int
 }
 
-var internalError = coreError {
+var internalError = Error {
 	"Internal Error",
 	http.StatusInternalServerError,
+}
+
+var malformedInputError = Error {
+	"Malformed Input Error",
+	http.StatusBadRequest,
 }
 
 func NotFoundHandler(domain string) http.HandlerFunc {

@@ -1,19 +1,18 @@
 package user_application_create_user_use_case
 
-import (
-	"github.com/shinYeongHyeon/onlyOurs-api/core"
-	"net/http"
-)
-
-type user struct {
-	A int
-	Name string
-}
+import domain_user "github.com/shinYeongHyeon/onlyOurs-api/src/user/domain"
 
 // Exec: user_application_create_user_use_case.exec()
-func Exec(w http.ResponseWriter, r *http.Request) {
-	core.WriteJSON(w, user {
-		1,
-		"신영현",
-	})
+func Exec(userNewProps domain_user.UserNewProps) CreateUserUseCaseResponse {
+	user := domain_user.UserNewCreate(userNewProps)
+
+	return CreateUserUseCaseResponse {
+		ok: "SUCCESS",
+		user: user,
+	}
+}
+
+type CreateUserUseCaseResponse struct {
+	ok   string
+	user domain_user.User
 }
