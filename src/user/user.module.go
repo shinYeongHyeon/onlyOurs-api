@@ -12,7 +12,8 @@ func UserModule() http.Handler {
 	router := mux.NewRouter().PathPrefix("/user").Subrouter()
 
 	router.NotFoundHandler = core.NotFoundHandler("User")
-	router.HandleFunc("/", user_controller.CreateUser).Methods("GET")
+
+	router.HandleFunc("", user_controller.CreateUser).Methods(http.MethodPost)
 
 	return router
 }

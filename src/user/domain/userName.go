@@ -3,7 +3,7 @@ package domain_user
 import "errors"
 
 type UserName struct {
-	value string
+	Value string
 }
 
 func UserNameCreate(userNameString string) UserName {

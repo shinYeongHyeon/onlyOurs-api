@@ -43,6 +43,7 @@ func HandleRecover(w http.ResponseWriter) {
 			status = errorObject.Status
 			message = errorObject.Message
 		default:
+			log.Print(r)
 		}
 
 		w.WriteHeader(status)

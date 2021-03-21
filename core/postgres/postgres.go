@@ -8,6 +8,9 @@ import (
 	"os"
 )
 
+var PostgresDb *ent.Client
+var PostgresCtx context.Context
+
 func Connect() {
 	url := fmt.Sprintf("postgresql://%v:%v@%v:%v/%v?sslmode=disable",
 		os.Getenv("POSTGRES_USER"),
@@ -20,10 +23,12 @@ func Connect() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer client.Close()
 
 	ctx := context.Background()
 	if err := client.Schema.Create(ctx); err != nil {
 		log.Fatalf("failed creating schema resources: %v", err)
 	}
+
+	PostgresDb = client
+	PostgresCtx = ctx
 }

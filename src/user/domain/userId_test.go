@@ -8,7 +8,7 @@ import (
 func TestUserIdCreate(t *testing.T) {
 	userIdString := "신영현"
 	userId := UserIdCreate(userIdString)
-	assert.Equal(t, userId.value, userIdString, "Create with userId")
+	assert.Equal(t, userId.Value, userIdString, "Create with userId")
 }
 
 func TestUserIdCreateFailByEmptyString(t *testing.T) {

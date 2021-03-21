@@ -3,7 +3,7 @@ package domain_user
 import "errors"
 
 type UserPassword struct {
-	value string
+	Value string
 }
 
 func UserPasswordCreate(userPasswordString string) UserPassword {

@@ -3,10 +3,10 @@ package domain_user
 import "github.com/google/uuid"
 
 type User struct {
-	id string
-	userId UserId
-	name UserName
-	password UserPassword
+	Id string
+	UserId UserId
+	Name UserName
+	Password UserPassword
 }
 
 type UserProps struct {
@@ -17,25 +17,25 @@ type UserProps struct {
 }
 
 type UserNewProps struct {
-	userId string
-	name string
-	password string
+	UserId   string `json:"userId"`
+	Name     string `json:"name"`
+	Password string `json:"password"`
 }
 
 func UserCreate(userProps UserProps) User {
 	return User {
-		id:       userProps.id,
-		userId:   UserIdCreate(userProps.userId),
-		name:     UserNameCreate(userProps.name),
-		password: UserPasswordCreate(userProps.password),
+		Id:       userProps.id,
+		UserId:   UserIdCreate(userProps.userId),
+		Name:     UserNameCreate(userProps.name),
+		Password: UserPasswordCreate(userProps.password),
 	}
 }
 
 func UserNewCreate(userNewProps UserNewProps) User {
 	return UserCreate(UserProps {
 		id:       uuid.NewString(),
-		userId:   userNewProps.userId,
-		name:     userNewProps.name,
-		password: userNewProps.password,
+		userId:   userNewProps.UserId,
+		name:     userNewProps.Name,
+		password: userNewProps.Password,
 	})
 }

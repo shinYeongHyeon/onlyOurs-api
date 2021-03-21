@@ -130,7 +130,7 @@ func (uu *UsersUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Table:   users.Table,
 			Columns: users.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt,
+				Type:   field.TypeString,
 				Column: users.FieldID,
 			},
 		},
@@ -285,7 +285,7 @@ func (uuo *UsersUpdateOne) sqlSave(ctx context.Context) (_node *Users, err error
 			Table:   users.Table,
 			Columns: users.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt,
+				Type:   field.TypeString,
 				Column: users.FieldID,
 			},
 		},

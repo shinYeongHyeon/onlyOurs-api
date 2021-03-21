@@ -11,14 +11,14 @@ func TestUserNewCreate(t *testing.T) {
 	userPassword := "비밀"
 
 	user := UserNewCreate(UserNewProps {
-		userId:   userId,
-		name:     userName,
-		password: userPassword,
+		UserId:   userId,
+		Name:     userName,
+		Password: userPassword,
 	})
 
-	assert.Equal(t, user.userId.value, userId)
-	assert.Equal(t, user.name.value, userName)
-	assert.Equal(t, user.password.value, userPassword)
+	assert.Equal(t, user.UserId.Value, userId)
+	assert.Equal(t, user.Name.Value, userName)
+	assert.Equal(t, user.Password.Value, userPassword)
 }
 
 func TestUserCreate(t *testing.T) {
@@ -34,8 +34,8 @@ func TestUserCreate(t *testing.T) {
 		password: userPassword,
 	})
 
-	assert.Equal(t, user.id, id)
-	assert.Equal(t, user.userId.value, userId)
-	assert.Equal(t, user.name.value, userName)
-	assert.Equal(t, user.password.value, userPassword)
+	assert.Equal(t, user.Id, id)
+	assert.Equal(t, user.UserId.Value, userId)
+	assert.Equal(t, user.Name.Value, userName)
+	assert.Equal(t, user.Password.Value, userPassword)
 }
