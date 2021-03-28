@@ -13,6 +13,10 @@ type createUserResponse struct {
 	Name   string
 }
 
+type LoginUserResponse struct {
+	token string
+}
+
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	defer core.HandleRecover(w)
 
@@ -24,5 +28,15 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		Id:     response.User.Id,
 		UserId: response.User.UserId.Value,
 		Name:   response.User.Name.Value,
+	})
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	defer core.HandleRecover(w)
+
+	// Todo: Params
+
+	core.WriteJSON(w, LoginUserResponse {
+		token: "token",
 	})
 }
