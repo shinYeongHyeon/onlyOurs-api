@@ -2,7 +2,7 @@ package user_controller
 
 import (
 	"github.com/shinYeongHyeon/onlyOurs-api/core"
-	user_application_create_user_use_case "github.com/shinYeongHyeon/onlyOurs-api/src/user/application"
+	"github.com/shinYeongHyeon/onlyOurs-api/src/user/application/create-user-use-case"
 	domain_user "github.com/shinYeongHyeon/onlyOurs-api/src/user/domain"
 	"net/http"
 )
@@ -19,7 +19,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	var userNewProps domain_user.UserNewProps
 	core.ParseJSON(r.Body, &userNewProps)
 
-	response := user_application_create_user_use_case.Exec(userNewProps)
+	response := create_user_use_case.Exec(userNewProps)
 	core.WriteJSON(w, createUserResponse {
 		Id:     response.User.Id,
 		UserId: response.User.UserId.Value,

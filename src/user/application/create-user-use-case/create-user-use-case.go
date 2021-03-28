@@ -1,4 +1,4 @@
-package user_application_create_user_use_case
+package create_user_use_case
 
 import (
 	"github.com/shinYeongHyeon/onlyOurs-api/core/postgres"
@@ -19,13 +19,13 @@ func Exec(userNewProps domain_user.UserNewProps) CreateUserUseCaseResponse {
 		Save(postgres.PostgresCtx)
 
 	if err != nil {
-		return CreateUserUseCaseResponse {
+		return CreateUserUseCaseResponse{
 			Ok: "QUERY_FAIL",
 			User: user,
 		}
 	}
 
-	return CreateUserUseCaseResponse {
+	return CreateUserUseCaseResponse{
 		Ok: "SUCCESS",
 		User: user,
 	}

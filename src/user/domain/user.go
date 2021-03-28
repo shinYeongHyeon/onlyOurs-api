@@ -3,16 +3,16 @@ package domain_user
 import "github.com/google/uuid"
 
 type User struct {
-	Id string
-	UserId UserId
-	Name UserName
+	Id       string
+	UserId   UserId
+	Name     UserName
 	Password UserPassword
 }
 
 type UserProps struct {
-	id string
-	userId string
-	name string
+	id       string
+	userId   string
+	name     string
 	password string
 }
 
