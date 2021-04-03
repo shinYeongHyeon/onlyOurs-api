@@ -1,6 +1,7 @@
 package user_controller
 
 import (
+	"github.com/labstack/gommon/log"
 	"github.com/shinYeongHyeon/onlyOurs-api/core"
 	"github.com/shinYeongHyeon/onlyOurs-api/src/user/application/create-user-use-case"
 	domain_user "github.com/shinYeongHyeon/onlyOurs-api/src/user/domain"
@@ -33,6 +34,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	defer core.HandleRecover(w)
+
+	log.Print("lgon")
 
 	// Todo: Params
 

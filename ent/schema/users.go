@@ -3,6 +3,7 @@ package schema
 import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
+	"time"
 )
 
 // Users holds the schema definition for the Users entity.
@@ -17,6 +18,7 @@ func (Users) Fields() []ent.Field {
 		field.String("user_id").Default(""),
 		field.String("name").Default(""),
 		field.String("password").Default(""),
+		field.Time("created_at").Default(time.Now),
 	}
 }
 

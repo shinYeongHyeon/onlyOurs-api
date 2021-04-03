@@ -25,7 +25,7 @@ func LoggingMiddleware(next http.Handler) http.Handler {
 
 		next.ServeHTTP(statusCapturingWriter, r)
 
-		log.Printf("[%s] %s - %d\n", r.Method, r.RequestURI,
+		log.Printf("Main [%s] %s - %d\n", r.Method, r.RequestURI,
 			statusCapturingWriter.status)
 	})
 }

@@ -5,6 +5,7 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/shinYeongHyeon/onlyOurs-api/ent/users"
@@ -21,6 +22,8 @@ type Users struct {
 	Name string `json:"name,omitempty"`
 	// Password holds the value of the "password" field.
 	Password string `json:"password,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt time.Time `json:"created_at,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -30,6 +33,8 @@ func (*Users) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case users.FieldID, users.FieldUserID, users.FieldName, users.FieldPassword:
 			values[i] = &sql.NullString{}
+		case users.FieldCreatedAt:
+			values[i] = &sql.NullTime{}
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Users", columns[i])
 		}
@@ -69,6 +74,12 @@ func (u *Users) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				u.Password = value.String
 			}
+		case users.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				u.CreatedAt = value.Time
+			}
 		}
 	}
 	return nil
@@ -103,6 +114,8 @@ func (u *Users) String() string {
 	builder.WriteString(u.Name)
 	builder.WriteString(", password=")
 	builder.WriteString(u.Password)
+	builder.WriteString(", created_at=")
+	builder.WriteString(u.CreatedAt.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()
 }

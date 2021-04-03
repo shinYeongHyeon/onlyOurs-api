@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -57,6 +58,20 @@ func (uc *UsersCreate) SetPassword(s string) *UsersCreate {
 func (uc *UsersCreate) SetNillablePassword(s *string) *UsersCreate {
 	if s != nil {
 		uc.SetPassword(*s)
+	}
+	return uc
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (uc *UsersCreate) SetCreatedAt(t time.Time) *UsersCreate {
+	uc.mutation.SetCreatedAt(t)
+	return uc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (uc *UsersCreate) SetNillableCreatedAt(t *time.Time) *UsersCreate {
+	if t != nil {
+		uc.SetCreatedAt(*t)
 	}
 	return uc
 }
@@ -131,6 +146,10 @@ func (uc *UsersCreate) defaults() {
 		v := users.DefaultPassword
 		uc.mutation.SetPassword(v)
 	}
+	if _, ok := uc.mutation.CreatedAt(); !ok {
+		v := users.DefaultCreatedAt()
+		uc.mutation.SetCreatedAt(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -143,6 +162,9 @@ func (uc *UsersCreate) check() error {
 	}
 	if _, ok := uc.mutation.Password(); !ok {
 		return &ValidationError{Name: "password", err: errors.New("ent: missing required field \"password\"")}
+	}
+	if _, ok := uc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New("ent: missing required field \"created_at\"")}
 	}
 	return nil
 }
@@ -196,6 +218,14 @@ func (uc *UsersCreate) createSpec() (*Users, *sqlgraph.CreateSpec) {
 			Column: users.FieldPassword,
 		})
 		_node.Password = value
+	}
+	if value, ok := uc.mutation.CreatedAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: users.FieldCreatedAt,
+		})
+		_node.CreatedAt = value
 	}
 	return _node, _spec
 }

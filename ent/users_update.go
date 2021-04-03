@@ -5,6 +5,7 @@ package ent
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -64,6 +65,20 @@ func (uu *UsersUpdate) SetPassword(s string) *UsersUpdate {
 func (uu *UsersUpdate) SetNillablePassword(s *string) *UsersUpdate {
 	if s != nil {
 		uu.SetPassword(*s)
+	}
+	return uu
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (uu *UsersUpdate) SetCreatedAt(t time.Time) *UsersUpdate {
+	uu.mutation.SetCreatedAt(t)
+	return uu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (uu *UsersUpdate) SetNillableCreatedAt(t *time.Time) *UsersUpdate {
+	if t != nil {
+		uu.SetCreatedAt(*t)
 	}
 	return uu
 }
@@ -163,6 +178,13 @@ func (uu *UsersUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: users.FieldPassword,
 		})
 	}
+	if value, ok := uu.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: users.FieldCreatedAt,
+		})
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{users.Label}
@@ -219,6 +241,20 @@ func (uuo *UsersUpdateOne) SetPassword(s string) *UsersUpdateOne {
 func (uuo *UsersUpdateOne) SetNillablePassword(s *string) *UsersUpdateOne {
 	if s != nil {
 		uuo.SetPassword(*s)
+	}
+	return uuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (uuo *UsersUpdateOne) SetCreatedAt(t time.Time) *UsersUpdateOne {
+	uuo.mutation.SetCreatedAt(t)
+	return uuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (uuo *UsersUpdateOne) SetNillableCreatedAt(t *time.Time) *UsersUpdateOne {
+	if t != nil {
+		uuo.SetCreatedAt(*t)
 	}
 	return uuo
 }
@@ -321,6 +357,13 @@ func (uuo *UsersUpdateOne) sqlSave(ctx context.Context) (_node *Users, err error
 			Type:   field.TypeString,
 			Value:  value,
 			Column: users.FieldPassword,
+		})
+	}
+	if value, ok := uuo.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: users.FieldCreatedAt,
 		})
 	}
 	_node = &Users{config: uuo.config}

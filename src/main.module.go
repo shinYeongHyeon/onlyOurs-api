@@ -2,6 +2,7 @@ package src
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/labstack/gommon/log"
 	"github.com/shinYeongHyeon/onlyOurs-api/core"
 	"github.com/shinYeongHyeon/onlyOurs-api/core/postgres"
 	"github.com/shinYeongHyeon/onlyOurs-api/ent"
@@ -20,9 +21,11 @@ var AppContext *appContext
 func ListenAndServe(address string, r *mux.Router) error {
 	postgres.Connect()
 
+	log.Print("main")
+
 	http.Handle("/", core.LoggingMiddleware(r))
-	http.Handle("/todo", core.LoggingMiddleware(todo.TodoModule()))
-	http.Handle("/user", core.LoggingMiddleware(user.UserModule()))
+	http.Handle("/todo/", core.LoggingMiddleware(todo.TodoModule()))
+	http.Handle("/user/", core.LoggingMiddleware(user.UserModule()))
 
 	return http.ListenAndServe(
 		address,

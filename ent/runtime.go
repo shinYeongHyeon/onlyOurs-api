@@ -3,6 +3,8 @@
 package ent
 
 import (
+	"time"
+
 	"github.com/shinYeongHyeon/onlyOurs-api/ent/schema"
 	"github.com/shinYeongHyeon/onlyOurs-api/ent/users"
 )
@@ -25,4 +27,8 @@ func init() {
 	usersDescPassword := usersFields[3].Descriptor()
 	// users.DefaultPassword holds the default value on creation for the password field.
 	users.DefaultPassword = usersDescPassword.Default.(string)
+	// usersDescCreatedAt is the schema descriptor for created_at field.
+	usersDescCreatedAt := usersFields[4].Descriptor()
+	// users.DefaultCreatedAt holds the default value on creation for the created_at field.
+	users.DefaultCreatedAt = usersDescCreatedAt.Default.(func() time.Time)
 }

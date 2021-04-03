@@ -9,11 +9,12 @@ import (
 
 // UserModule: UserModule
 func UserModule() http.Handler {
-	router := mux.NewRouter().PathPrefix("/user").Subrouter()
+	router := mux.NewRouter().PathPrefix("/user/").Subrouter()
 
 	router.NotFoundHandler = core.NotFoundHandler("User")
 
-	router.HandleFunc("", user_controller.CreateUser).Methods(http.MethodPost)
+	router.HandleFunc("/", user_controller.CreateUser).Methods(http.MethodPost)
+	router.HandleFunc("/login", user_controller.Login).Methods(http.MethodPost)
 
 	return router
 }
