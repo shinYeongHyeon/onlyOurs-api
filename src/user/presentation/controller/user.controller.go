@@ -4,6 +4,7 @@ import (
 	"github.com/labstack/gommon/log"
 	"github.com/shinYeongHyeon/onlyOurs-api/core"
 	"github.com/shinYeongHyeon/onlyOurs-api/src/user/application/create-user-use-case"
+	login_user_use_case "github.com/shinYeongHyeon/onlyOurs-api/src/user/application/login-user-use-case"
 	domain_user "github.com/shinYeongHyeon/onlyOurs-api/src/user/domain"
 	"net/http"
 )
@@ -35,8 +36,11 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 func Login(w http.ResponseWriter, r *http.Request) {
 	defer core.HandleRecover(w)
 
-	log.Print("lgon")
+	var loginUserUseCaseRequestBody login_user_use_case.LoginUserUseCaseRequestBody
+	core.ParseJSON(r.Body, &loginUserUseCaseRequestBody)
 
+	response := login_user_use_case.Exec()
+	log.Print(response)
 	// Todo: Params
 
 	core.WriteJSON(w, LoginUserResponse {

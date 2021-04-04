@@ -2,7 +2,7 @@ package login_user_use_case
 
 
 // Exec: login
-func Exec() {
+func Exec() error {
 	// Todo: Jwt
-
+	return nil
 }
