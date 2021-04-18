@@ -28,3 +28,4 @@ services:
       - POSTGRES_PASSWORD=samplesecret
       - POSTGRES_HOST=onlyours-postgres
       - POSTGRES_PORT=5432
+      - JWT_SCRET_KEY=jiof73mbofdm
