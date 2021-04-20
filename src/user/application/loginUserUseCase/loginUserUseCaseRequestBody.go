@@ -1,4 +1,4 @@
-package login_user_use_case
+package loginUserUseCase
 
 type LoginUserUseCaseRequestBody struct {
 	UserId   string `json:"userId"`
