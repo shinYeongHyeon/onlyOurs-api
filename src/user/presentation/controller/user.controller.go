@@ -27,7 +27,17 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	core.ParseJSON(r.Body, &userNewProps)
 
 	response := CreateUserUseCase.Exec(userNewProps)
-	log.Print(response)
+
+	if response.Ok != "SUCCESS" {
+		core.WriteJSON(w, createUserResponse {
+			Code:   response.Ok,
+			Id:     "",
+			UserId: "",
+			Name:   "",
+		})
+		return
+	}
+
 	core.WriteJSON(w, createUserResponse {
 		Code:   response.Ok,
 		Id:     response.User.Id,
